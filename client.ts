@@ -189,6 +189,13 @@ class GameScene extends Phaser.Scene {
       if (!moving) {
         (player.body as Phaser.Physics.Arcade.Body).setVelocity(0);
         player.anims.stop();
+      } else if (this.wsClient) {
+        this.wsClient.send(JSON.stringify({
+          id: this.id,
+          x: player.x,
+          y: player.y,
+          frame: player.frame.name
+        }));
       }
       player.update();
     }
